@@ -1,0 +1,45 @@
+// clk pin is outputA
+// DT is outputB
+
+/*
+CLK	D6
+DT	D5
+*/
+
+int switchA = D5;
+int switchB = D6;
+
+int counter = 0;
+int switchas; // switch A state
+int switchals; // switch A last state
+
+void setup()
+{
+	pinMode(switchA, INPUT);
+	pinMode(switchB, INPUT);
+
+	Serial.begin(9600);
+
+	switchals = digitalRead(switchA);
+}
+
+void loop()
+{
+	switchas = digitalRead(switchA);
+
+	if (switchas != switchals)
+	{
+		if (digitalRead(switchB) != switchas)
+		{
+			counter++;
+		}
+		else
+		{
+			counter--;
+		}
+		Serial.print("POsition: ");
+		Serial.println(counter);
+	}
+	switchals = switchas;
+}
+
